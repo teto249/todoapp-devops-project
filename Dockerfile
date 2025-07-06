@@ -1,13 +1,14 @@
-FROM openjdk:11 AS build
+FROM openjdk:21-jdk-slim AS build
 
 COPY pom.xml mvnw ./
 COPY .mvn .mvn
 RUN ./mvnw dependency:resolve
 
 COPY src src
-RUN ./mvnw package
+RUN ./mvnw package -DskipTests
 
-FROM openjdk:11
-WORKDIR todoapp
+FROM openjdk:21-jre-slim
+WORKDIR /app
 COPY --from=build target/*.jar todoapp.jar
+EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "todoapp.jar"]

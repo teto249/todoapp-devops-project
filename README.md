@@ -1,24 +1,37 @@
 
-# Todo app project using Spring Boot in backend
+# TodoApp DevOps Project
 
-This project provides to CRUD operations for users and users' tasks.
+## Overview
+This is a Spring Boot Todo Application with a complete DevOps pipeline including Jenkins, Docker, and Kubernetes.
 
-- [x] Java 11
-- [x] Spring Boot
-- [x] Spring Data
-- [x] H2 Database
-- [x] Documented on Swagger
-- [x] Maven
-- [x] Dockerized and published on Docker Hub
-- [x] Unit tests using JUnit and Mockito
+## Features
+- Simple Todo Management (Create, Read, Update, Delete)
+- Task Status Management (Pending, In Progress, Completed)
+- Priority Levels (Low, Medium, High)
+- Modern Web UI
+- REST API with Swagger Documentation
 
-There are 5 endpoints in user-controller:
+## Technology Stack
+- **Backend**: Spring Boot 2.7.x, Java 21
+- **Database**: H2 (In-memory for demo)
+- **Build Tool**: Maven
+- **Containerization**: Docker
+- **Orchestration**: Kubernetes (Minikube)
+- **CI/CD**: Jenkins
+- **Version Control**: Git/GitHub
 
-![Ekran görüntüsü 2022-01-28 122805](https://user-images.githubusercontent.com/81221395/151521861-630fc30f-6ffe-4ecb-b725-edf00ed91b8d.png)
+## API Endpoints
 
-There are 5 endpoints in task-controller:
+### Tasks
+- `GET /api/tasks` - Get all tasks
+- `GET /api/tasks/{id}` - Get task by ID  
+- `POST /api/tasks` - Create new task
+- `PUT /api/tasks/{id}` - Update task
+- `DELETE /api/tasks/{id}` - Delete task
+- `GET /api/tasks/status/{status}` - Get tasks by status
 
-![Ekran görüntüsü 2022-01-28 122827](https://user-images.githubusercontent.com/81221395/151521882-88fe53d2-42b6-4a6b-b863-e0716fe166de.png)
+### Swagger Documentation
+- `http://localhost:8080/swagger-ui.html` - Interactive API documentation
 
 ## Build Application
 
