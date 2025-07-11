@@ -7,7 +7,7 @@ import com.devsuatt.todoApp.exception.UserNotFoundException;
 import com.devsuatt.todoApp.model.User;
 import com.devsuatt.todoApp.repository.UserRepository;
 import com.devsuatt.todoApp.service.concrete.UserManager;
-import com.devsuatt.todoApp.service.abstract.UserService;
+import com.devsuatt.todoApp.service.zabstract.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

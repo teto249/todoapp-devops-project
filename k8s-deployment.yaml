@@ -5,7 +5,7 @@ metadata:
   labels:
     app: todoapp
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: todoapp
@@ -16,12 +16,13 @@ spec:
     spec:
       containers:
       - name: todoapp
-        image: your-dockerhub-username/todoapp:latest
+        image: todoapp:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
         env:
         - name: SPRING_PROFILES_ACTIVE
-          value: "prod"
+          value: "default"
         resources:
           requests:
             memory: "256Mi"
@@ -34,11 +35,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: todoapp-service
+  labels:
+    app: todoapp
 spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30080
   selector:
     app: todoapp
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  type: LoadBalancer
