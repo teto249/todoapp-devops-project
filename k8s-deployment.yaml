@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: todoapp
-        image: todoapp:latest
-        imagePullPolicy: Never
+        image: altayebmustafa/todoapp:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
         env:
