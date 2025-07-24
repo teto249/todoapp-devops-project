@@ -40,8 +40,19 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskDto> createTask(@Valid @RequestBody CreateTaskRequestDto requestDto) {
-        return ResponseEntity.ok(taskService.createTask(requestDto));
+    public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto) {
+        if (taskDto.getTitle() == null || taskDto.getTitle().isEmpty()) {
+            return ResponseEntity.badRequest().body("Title is required");
+        }
+        Task task = new Task();
+        task.setTitle(taskDto.getTitle());
+        task.setDescription(taskDto.getDescription());
+        task.setDueDate(taskDto.getDueDate());
+        task.setPriority(taskDto.getPriority());
+        taskRepository.save(task);
+        notificationService.notifyUser(task);
+        logger.info("Task created: " + task.getTitle());
+        return ResponseEntity.ok(task);
     }
 
     @PutMapping("/{id}")
