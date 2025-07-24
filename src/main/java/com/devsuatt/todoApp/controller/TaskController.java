@@ -41,11 +41,11 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createTask(@RequestBody TaskDto taskDto) {
-        if (taskDto.getTitle() == null || taskDto.getTitle().isEmpty()) {
+    public ResponseEntity<?> createTask(@Valid @RequestBody CreateTaskRequestDto createTaskRequestDto) {
+        if (createTaskRequestDto.getTitle() == null || createTaskRequestDto.getTitle().isEmpty()) {
             return ResponseEntity.badRequest().body("Title is required");
         }
-        TaskDto createdTask = taskService.createTask(taskDto);
+        TaskDto createdTask = taskService.createTask(createTaskRequestDto);
         return ResponseEntity.ok(createdTask);
     }
 
