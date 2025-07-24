@@ -39,6 +39,7 @@ class TaskServiceTest extends TestSupport {
 
     @Test
     public void testFindByTaskId_whenTaskIdExists_shouldReturnTask() {
+        long start = System.currentTimeMillis();
         Task task = generateTask("id", "title", "description");
 
         Mockito.when(taskRepository.findById(task.getId()))
@@ -47,19 +48,25 @@ class TaskServiceTest extends TestSupport {
         Task result = taskService.findTaskById(task.getId());
 
         assertEquals(result, task);
+        long end = System.currentTimeMillis();
+        System.out.println("Execution time (testFindByTaskId_whenTaskIdExists_shouldReturnTask): " + (end - start) + " ms");
     }
 
     @Test
     public void testFindByTaskId_whenTaskIdDoesNotExists_shouldThrowTaskNotFoundException() {
+        long start = System.currentTimeMillis();
         Mockito.when(taskRepository.findById("id"))
                 .thenReturn(Optional.empty());
 
         assertThrows(TaskNotFoundException.class,
                 () -> taskService.findTaskById("id"));
+        long end = System.currentTimeMillis();
+        System.out.println("Execution time (testFindByTaskId_whenTaskIdDoesNotExists_shouldThrowTaskNotFoundException): " + (end - start) + " ms");
     }
 
     @Test
     public void testCreateTask_shouldCreateTask() {
+        long start = System.currentTimeMillis();
         CreateTaskRequestDto requestDto = generateRequestDto();
         Task task = generateTask("","taskTitle", "taskDescription");
         TaskDto expected = new TaskDto("taskId",
@@ -76,6 +83,8 @@ class TaskServiceTest extends TestSupport {
         TaskDto result = taskService.createTask(requestDto);
 
         assertNotNull(result);
+        long end = System.currentTimeMillis();
+        System.out.println("Execution time (testCreateTask_shouldCreateTask): " + (end - start) + " ms");
     }
 
 }
