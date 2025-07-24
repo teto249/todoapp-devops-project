@@ -4,6 +4,7 @@ import com.devsuatt.todoApp.dto.CreateTaskRequestDto;
 import com.devsuatt.todoApp.dto.TaskDto;
 import com.devsuatt.todoApp.dto.UpdateTaskRequestDto;
 import com.devsuatt.todoApp.model.TaskStatus;
+import com.devsuatt.todoApp.model.Task;
 import com.devsuatt.todoApp.service.concrete.TaskManager;
 import com.devsuatt.todoApp.service.abstractservice.TaskService;
 import com.devsuatt.todoApp.shared.GenericResponse;
@@ -44,15 +45,8 @@ public class TaskController {
         if (taskDto.getTitle() == null || taskDto.getTitle().isEmpty()) {
             return ResponseEntity.badRequest().body("Title is required");
         }
-        Task task = new Task();
-        task.setTitle(taskDto.getTitle());
-        task.setDescription(taskDto.getDescription());
-        task.setDueDate(taskDto.getDueDate());
-        task.setPriority(taskDto.getPriority());
-        taskRepository.save(task);
-        notificationService.notifyUser(task);
-        logger.info("Task created: " + task.getTitle());
-        return ResponseEntity.ok(task);
+        TaskDto createdTask = taskService.createTask(taskDto);
+        return ResponseEntity.ok(createdTask);
     }
 
     @PutMapping("/{id}")
