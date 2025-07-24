@@ -1,4 +1,3 @@
-# Jenkinsfile for TodoApp DevOps Pipeline
 pipeline {
     agent any
     
@@ -32,6 +31,18 @@ pipeline {
             post {
                 always {
                     junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+        stage('Performance Test (Multiple Runs)') {
+            steps {
+                echo 'Running performance test multiple times...'
+                script {
+                    for (int i = 1; i <= 10; i++) {
+                        echo "Run #${i}"
+                        sh './mvnw -Dtest=com.devsuatt.todoApp.service.TaskServiceTest test'
+                    }
                 }
             }
         }
