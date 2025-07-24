@@ -9,4 +9,26 @@ pipeline {
         }
         stage('Performance Test (Multiple Runs)') {
             steps {
-                echo 'Running performance test
+                echo 'Running performance test multiple times...'
+                script {
+                    for (int i = 1; i <= 10; i++) {
+                        echo "Run #${i}"
+                        sh './mvnw -Dtest=com.devsuatt.todoApp.service.TaskServiceTest test'
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline completed!'
+            cleanWs()
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
